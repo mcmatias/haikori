@@ -6,7 +6,7 @@
 
 
 /*
- * funcao para imprimir tabuleiro 
+ * Função para imprimir a configuração atual do tabuleiro. 
  */
 void printTable(char table[LINHA][COLUNA])
 {
@@ -24,7 +24,7 @@ void printTable(char table[LINHA][COLUNA])
 }
 
 /*
- * funcao para retornar casas livres do tabuleiro 
+ * Função para retornar as posições livres do tabuleiro 
  */
 void retornaCasaVazia(char table[LINHA][COLUNA], int livre1[], int livre2[]) {
 	
@@ -35,19 +35,17 @@ void retornaCasaVazia(char table[LINHA][COLUNA], int livre1[], int livre2[]) {
 	{
 		for(j = 0; j < COLUNA; j++)
 		{
-				if (table[i][j] == '0') {
+				if (table[i][j] == '0') 
+				{
 					if (livre1[0] == CORINGA) {
 							livre1[0] = i;
 							livre1[1] = j;
-					} else {
+					} else 
+					{
 						livre2[0] = i;
 						livre2[1] = j;
 					}
 				}	
-		}
-			
+		}			
 	}
-
-
 }
-
