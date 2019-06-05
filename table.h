@@ -37,7 +37,8 @@ void retornaCasaVazia(char table[LINHA][COLUNA], int livre1[], int livre2[])
 		{
 				if (table[i][j] == '0') 
 				{
-					if (livre1[0] == CORINGA) {
+					if (livre1[0] == CORINGA) 
+					{
 							livre1[0] = i;
 							livre1[1] = j;
 					} else 
