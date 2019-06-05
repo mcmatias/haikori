@@ -26,8 +26,8 @@ void printTable(char table[LINHA][COLUNA])
 /*
  * Função para retornar as posições livres do tabuleiro 
  */
-void retornaCasaVazia(char table[LINHA][COLUNA], int livre1[], int livre2[]) {
-	
+void retornaCasaVazia(char table[LINHA][COLUNA], int livre1[], int livre2[]) 
+{	
 	int i;
 	int j;
 
