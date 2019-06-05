@@ -8,7 +8,7 @@
 /*
  * Função para imprimir a configuração atual do tabuleiro. 
  */
-void printTable(char table[LINHA][COLUNA])
+void imprimeTabuleiro(char tabuleiro[LINHA][COLUNA])
 {
 	int i;
 	int j;
@@ -17,7 +17,7 @@ void printTable(char table[LINHA][COLUNA])
 	{
 		for(j = 0; j < COLUNA; j++)
 		{
-			printf("%c", table[i][j]);
+			printf("%c", tabuleiro[i][j]);
 		}
 		printf("\n");	
 	}
@@ -26,7 +26,7 @@ void printTable(char table[LINHA][COLUNA])
 /*
  * Função para retornar as posições livres do tabuleiro 
  */
-void retornaCasaVazia(char table[LINHA][COLUNA], int livre1[], int livre2[]) 
+void retornaCasaVazia(char tabuleiro[LINHA][COLUNA], int livre1[], int livre2[]) 
 {	
 	int i;
 	int j;
@@ -35,7 +35,7 @@ void retornaCasaVazia(char table[LINHA][COLUNA], int livre1[], int livre2[])
 	{
 		for(j = 0; j < COLUNA; j++)
 		{
-				if (table[i][j] == '0') 
+				if (tabuleiro[i][j] == '0') 
 				{
 					if (livre1[0] == CORINGA) 
 					{
