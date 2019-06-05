@@ -1,7 +1,0 @@
-#include "table.h"
-
-
-int main(int argc, char* argv[])
-{
-	char table_inicial[LINHA][COLUNA] = {{'I', ''}}
-}
