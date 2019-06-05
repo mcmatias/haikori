@@ -2,9 +2,12 @@
 
 #define LINHA 5
 #define COLUNA 4
+#define CORINGA 100
 
 
-
+/*
+ * funcao para imprimir tabuleiro 
+ */
 void printTable(char table[LINHA][COLUNA])
 {
 	int i;
@@ -19,3 +22,32 @@ void printTable(char table[LINHA][COLUNA])
 		printf("\n");	
 	}
 }
+
+/*
+ * funcao para retornar casas livres do tabuleiro 
+ */
+void retornaCasaVazia(char table[LINHA][COLUNA], int livre1[], int livre2[]) {
+	
+	int i;
+	int j;
+
+	for(i = 0; i < LINHA; i++)
+	{
+		for(j = 0; j < COLUNA; j++)
+		{
+				if (table[i][j] == '0') {
+					if (livre1[0] == CORINGA) {
+							livre1[0] = i;
+							livre1[1] = j;
+					} else {
+						livre2[0] = i;
+						livre2[1] = j;
+					}
+				}	
+		}
+			
+	}
+
+
+}
+
