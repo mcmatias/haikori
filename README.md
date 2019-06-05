@@ -1,5 +1,5 @@
-## Trabalho 1 da Disciplina Laboratório de Programação (2019.1)
-# Integrantes do grupo:
+# Trabalho 1 da Disciplina Laboratório de Programação (2019.1)
+## Integrantes do grupo:
     + Flávia Santo
     + Gabriel de Miranda Pontes da Silva
     + Matheus Matias
