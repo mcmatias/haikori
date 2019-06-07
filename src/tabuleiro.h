@@ -58,10 +58,13 @@ void retornaCasaVazia(char tabuleiro[LINHA][COLUNA], int livre1[CASA_LIVRE], int
 	}
 }
 
-bool ladoEsquerdo(char tabuleiro[LINHA][COLUNA], int i, int j)
+bool ladoEsquerdo(char tabuleiro[LINHA][COLUNA], int i, int j, struct casa_ao_lado x)
 {
 	if ((0 <= j - 1) && (j - 1 < COLUNA) && (tabuleiro[i][j - 1] != '0'))
 	{
+		x.linha = i;
+		x.coluna = j;
+		x.valor = tabuleiro[i][j - 1];
 		return true;
 	}
 
@@ -98,57 +101,50 @@ bool ladoAbaixo(char tabuleiro[LINHA][COLUNA], int i, int j)
 	return false;
 }
 
-void casasAdjacentes(char tabuleiro[LINHA][COLUNA], int casas_livres[CASA_LIVRE],
-					 int casas_adjacentes[CASA_ADJACENTE_LINHA][CASA_ADJACENTE_COLUNA],
-					 int *tamanho_casas_adjacentes)
+void casasAdjacentes(char tabuleiro[LINHA][COLUNA], int casas_livres[CASA_LIVRE], struct casa_ao_lado adjacentes[], int sizeAdjacente)
 {
 	int i = casas_livres[0];
-	int j = casas_livres[1];
-	int contador_i = 0;
-	int contador_j = 0;
-	int n_casas_adjacentes = 0;
-
-	if (ladoEsquerdo(tabuleiro, i, j))
+	int j = casas_livres[1];	
+	
+	for(int a=0; a<sizeAdjacente; a++) {
+		
+		if (ladoEsquerdo(tabuleiro, i, j, adjacentes[a]))
 	{
-		casas_adjacentes[contador_i][contador_j] = i;
-		contador_j++;
-		casas_adjacentes[contador_i][contador_j] = j - 1;
-		contador_i++;
-		contador_j = 0;
-		n_casas_adjacentes++;
+
 	}
 
-	if (ladoDireito(tabuleiro, i, j))
-	{
-		casas_adjacentes[contador_i][contador_j] = i;
-		contador_j++;
-		casas_adjacentes[contador_i][contador_j] = j + 1;
-		contador_i++;
-		contador_j = 0;
-		n_casas_adjacentes++;
-	}
+	//if (ladoDireito(tabuleiro, i, j))
+	//{
+		//casas_adjacentes[contador_i][contador_j] = i;
+		//contador_j++;
+		//casas_adjacentes[contador_i][contador_j] = j + 1;
+		//contador_i++;
+		//contador_j = 0;
+		//n_casas_adjacentes++;
+	//}
 
-	if (ladoAcima(tabuleiro, i, j))
-	{
-		casas_adjacentes[contador_i][contador_j] = i - 1;
-		contador_j++;
-		casas_adjacentes[contador_i][contador_j] = j;
-		contador_i++;
-		contador_j = 0;
-		n_casas_adjacentes++;
-	}
+	//if (ladoAcima(tabuleiro, i, j))
+	//{
+		//casas_adjacentes[contador_i][contador_j] = i - 1;
+		//contador_j++;
+		//casas_adjacentes[contador_i][contador_j] = j;
+		//contador_i++;
+		//contador_j = 0;
+		//n_casas_adjacentes++;
+	//}
 
-	if (ladoAbaixo(tabuleiro, i, j))
-	{
-		casas_adjacentes[contador_i][contador_j] = i + 1;
-		contador_j++;
-		casas_adjacentes[contador_i][contador_j] = j;
-		contador_i++;
-		contador_j = 0;
-		n_casas_adjacentes++;
-	}
+	//if (ladoAbaixo(tabuleiro, i, j))
+	//{
+		//casas_adjacentes[contador_i][contador_j] = i + 1;
+		//contador_j++;
+		//casas_adjacentes[contador_i][contador_j] = j;
+		//contador_i++;
+		//contador_j = 0;
+		//n_casas_adjacentes++;
+	//}
+		
+	//}
 
-	*tamanho_casas_adjacentes = n_casas_adjacentes;
 }
 
 /*
