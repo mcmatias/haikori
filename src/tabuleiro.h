@@ -9,6 +9,13 @@
 #define CASA_ADJACENTE_LINHA 4
 #define CASA_ADJACENTE_COLUNA 2
 
+
+	struct casa_ao_lado {
+		int linha;
+		int coluna;
+		char valor;
+	};
+
 /*
  * Função para imprimir a configuração atual do tabuleiro. 
  */
@@ -60,90 +67,126 @@ void retornaCasaVazia(char tabuleiro[LINHA][COLUNA], int livre1[CASA_LIVRE], int
 
 bool ladoEsquerdo(char tabuleiro[LINHA][COLUNA], int i, int j, struct casa_ao_lado x)
 {
+	printf("entrou ladoEsquerdo\n");
 	if ((0 <= j - 1) && (j - 1 < COLUNA) && (tabuleiro[i][j - 1] != '0'))
 	{
 		x.linha = i;
+		printf("x.linha: %d\n", x.linha);
 		x.coluna = j;
+		printf("x.coluna: %d\n", x.coluna);
 		x.valor = tabuleiro[i][j - 1];
+		printf("x.valor: %c\n", x.valor);
 		return true;
+	} else if (tabuleiro[i][j - 1] == '0') {
+		x.linha = i;
+		x.coluna = j;
+		x.valor = '0';
 	}
 
 	return false;
 }
 
-bool ladoDireito(char tabuleiro[LINHA][COLUNA], int i, int j)
+bool ladoDireito(char tabuleiro[LINHA][COLUNA], int i, int j, struct casa_ao_lado x)
 {
 	if ((0 <= j + 1) && (j + 1 < COLUNA) && (tabuleiro[i][j + 1] != '0'))
 	{
+		x.linha = i;
+		printf("x.linha: %d\n", x.linha);
+		x.coluna = j;
+		printf("x.coluna: %d\n", x.coluna);
+		x.valor = tabuleiro[i][j + 1];
+		printf("x.valor: %c\n", x.valor);
 		return true;
+	} else if (tabuleiro[i][j + 1] == '0') {
+		x.linha = i;
+		x.coluna = j;
+		x.valor = '0';
 	}
 
 	return false;
 }
 
-bool ladoAcima(char tabuleiro[LINHA][COLUNA], int i, int j)
+bool ladoAcima(char tabuleiro[LINHA][COLUNA], int i, int j, struct casa_ao_lado x)
 {
 	if ((0 <= i - 1) && (i - 1 < LINHA) && (tabuleiro[i - 1][j] != '0'))
 	{
+		x.linha = i;
+		printf("x.linha: %d\n", x.linha);
+		x.coluna = j;
+		printf("x.coluna: %d\n", x.coluna);
+		x.valor = tabuleiro[i-1][j];
+		printf("x.valor: %c\n", x.valor);
 		return true;
+	} else if (tabuleiro[i - 1][j] == '0') {
+		x.linha = i;
+		x.coluna = j;
+		x.valor = '0';
 	}
 
 	return false;
 }
 
-bool ladoAbaixo(char tabuleiro[LINHA][COLUNA], int i, int j)
+bool ladoAbaixo(char tabuleiro[LINHA][COLUNA], int i, int j, struct casa_ao_lado x)
 {
 	if ((0 <= i + 1) && (i + 1 < LINHA) && (tabuleiro[i + 1][j] != '0'))
 	{
+		x.linha = i;
+		printf("x.linha: %d\n", x.linha);
+		x.coluna = j;
+		printf("x.coluna: %d\n", x.coluna);
+		x.valor = tabuleiro[i+1][j];
+		printf("x.valor: %c\n", x.valor);
 		return true;
+	} else if (tabuleiro[i + 1][j] == '0') {
+		x.linha = i;
+		x.coluna = j;
+		x.valor = '0';
 	}
 
 	return false;
 }
 
-void casasAdjacentes(char tabuleiro[LINHA][COLUNA], int casas_livres[CASA_LIVRE], struct casa_ao_lado adjacentes[], int sizeAdjacente)
+void casasAdjacentes(char tabuleiro[][COLUNA], int casas_livres[],
+					 struct casa_ao_lado adjacentes[], int sizeAdjacente)
 {
 	int i = casas_livres[0];
-	int j = casas_livres[1];	
+	int j = casas_livres[1];
+
+	printf("sizeAdjacente: %d\n", sizeAdjacente);
+
+	/*
+	struct casa_ao_lado adjacentes[]
+	0 - dir livre1
+	1 - esq livre1
+	2 - cima livre1
+	3 - baixo livre1
+	4 - dir livre2
+	5 - esq livre2
+	6 - cima livre2
+	7 - baixo livre2
+	uma casa do livre1 vai apontar p posicao do livre2
+	e uma casa do livre2 vai apontar a posicao do livre1
+	se achar um 'D' tem que ver se a outra livre achou
+	um 'D' na mesma posicao
+	Ex. se adjacentes[0] for 'D', p jogada ser válida,
+	adjacentes[4] tem que ser 'D'.
+	 */
 	
-	for(int a=0; a<sizeAdjacente; a++) {
-		
-		if (ladoEsquerdo(tabuleiro, i, j, adjacentes[a]))
-	{
+	/*LIVRE1*/
+	ladoDireito(tabuleiro, i, j, adjacentes[0]);
+	ladoEsquerdo(tabuleiro, i, j, adjacentes[1]);
+	ladoAcima(tabuleiro, i, j, adjacentes[2]);
+	ladoAbaixo(tabuleiro, i, j, adjacentes[3]);
 
-	}
+	/*LIVRE2*/
+	ladoDireito(tabuleiro, i, j, adjacentes[4]);
+	ladoEsquerdo(tabuleiro, i, j, adjacentes[5]);
+	ladoAcima(tabuleiro, i, j, adjacentes[6]);
+	ladoAbaixo(tabuleiro, i, j, adjacentes[7]);
 
-	//if (ladoDireito(tabuleiro, i, j))
-	//{
-		//casas_adjacentes[contador_i][contador_j] = i;
-		//contador_j++;
-		//casas_adjacentes[contador_i][contador_j] = j + 1;
-		//contador_i++;
-		//contador_j = 0;
-		//n_casas_adjacentes++;
-	//}
+	
+	
 
-	//if (ladoAcima(tabuleiro, i, j))
-	//{
-		//casas_adjacentes[contador_i][contador_j] = i - 1;
-		//contador_j++;
-		//casas_adjacentes[contador_i][contador_j] = j;
-		//contador_i++;
-		//contador_j = 0;
-		//n_casas_adjacentes++;
-	//}
-
-	//if (ladoAbaixo(tabuleiro, i, j))
-	//{
-		//casas_adjacentes[contador_i][contador_j] = i + 1;
-		//contador_j++;
-		//casas_adjacentes[contador_i][contador_j] = j;
-		//contador_i++;
-		//contador_j = 0;
-		//n_casas_adjacentes++;
-	//}
-		
-	//}
 
 }
 
