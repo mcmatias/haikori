@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
 	imprimeTabuleiro(tabuleiro_inicial);
 	retornaCasaVazia(tabuleiro_inicial, livre1, livre2);
 	casasAdjacentes(tabuleiro_inicial, livre1, livre2, adjacentes, sizeAdjacente);
+	moverPeca(tabuleiro_inicial, livre1, livre2, adjacentes, sizeAdjacente);
 
 	for (i = 0; i < tamanho_casas_adjancentes; i++)
 	{

@@ -65,85 +65,73 @@ void retornaCasaVazia(char tabuleiro[LINHA][COLUNA], int livre1[CASA_LIVRE], int
 	}
 }
 
-bool ladoEsquerdo(char tabuleiro[LINHA][COLUNA], int i, int j, struct casa_ao_lado x)
+bool ladoEsquerdo(char tabuleiro[][COLUNA], int i, int j, struct casa_ao_lado *x)
 {
 	printf("entrou ladoEsquerdo\n");
 	if ((0 <= j - 1) && (j - 1 < COLUNA) && (tabuleiro[i][j - 1] != '0'))
 	{
-		x.linha = i;
-		printf("x.linha: %d\n", x.linha);
-		x.coluna = j;
-		printf("x.coluna: %d\n", x.coluna);
-		x.valor = tabuleiro[i][j - 1];
-		printf("x.valor: %c\n", x.valor);
+		(*x).linha = i;
+		(*x).coluna = j - 1;
+		(*x).valor = tabuleiro[i][j - 1];
 		return true;
 	} else if (tabuleiro[i][j - 1] == '0') {
-		x.linha = i;
-		x.coluna = j;
-		x.valor = '0';
+		(*x).linha = i;
+		(*x).coluna = j - 1;
+		(*x).valor = '0';
 	}
 
 	return false;
 }
 
-bool ladoDireito(char tabuleiro[LINHA][COLUNA], int i, int j, struct casa_ao_lado x)
+bool ladoDireito(char tabuleiro[][COLUNA], int i, int j, struct casa_ao_lado *x)
 {
 	printf("entrou ladoDir\n");
 	if ((0 <= j + 1) && (j + 1 < COLUNA) && (tabuleiro[i][j + 1] != '0'))
 	{
-		x.linha = i;
-		printf("x.linha: %d\n", x.linha);
-		x.coluna = j;
-		printf("x.coluna: %d\n", x.coluna);
-		x.valor = tabuleiro[i][j + 1];
-		printf("x.valor: %c\n", x.valor);
+		(*x).linha = i;
+		(*x).coluna = j + 1;
+		(*x).valor = tabuleiro[i][j + 1];
 		return true;
 	} else if (tabuleiro[i][j + 1] == '0') {
-		x.linha = i;
-		x.coluna = j;
-		x.valor = '0';
+		(*x).linha = i;
+		(*x).coluna = j + 1;
+		(*x).valor = '0';
 	}
 
 	return false;
 }
 
-bool ladoAcima(char tabuleiro[LINHA][COLUNA], int i, int j, struct casa_ao_lado x)
+bool ladoAcima(char tabuleiro[][COLUNA], int i, int j, struct casa_ao_lado *x)
 {
 	printf("entrou ladoAcima\n");
 	if ((0 <= i - 1) && (i - 1 < LINHA) && (tabuleiro[i - 1][j] != '0'))
 	{
-		x.linha = i;
-		printf("x.linha: %d\n", x.linha);
-		x.coluna = j;
-		printf("x.coluna: %d\n", x.coluna);
-		x.valor = tabuleiro[i-1][j];
-		printf("x.valor: %c\n", x.valor);
+		(*x).linha = i - 1;
+		(*x).coluna = j;
+		(*x).valor = tabuleiro[i-1][j];
 		return true;
 	} else if (tabuleiro[i - 1][j] == '0') {
-		x.linha = i;
-		x.coluna = j;
-		x.valor = '0';
+		(*x).linha = i - 1;
+		(*x).coluna = j;
+		(*x).valor = '0';
 	}
 
 	return false;
 }
 
-bool ladoAbaixo(char tabuleiro[LINHA][COLUNA], int i, int j, struct casa_ao_lado x)
+bool ladoAbaixo(char tabuleiro[][COLUNA], int i, int j, struct casa_ao_lado *x)
 {
 	printf("entrou ladoAbaixo\n");
 	if ((0 <= i + 1) && (i + 1 < LINHA) && (tabuleiro[i + 1][j] != '0'))
 	{
-		x.linha = i;
-		printf("x.linha: %d\n", x.linha);
-		x.coluna = j;
-		printf("x.coluna: %d\n", x.coluna);
-		x.valor = tabuleiro[i+1][j];
-		printf("x.valor: %c\n", x.valor);
+		(*x).linha = i + 1;
+		(*x).coluna = j;
+		(*x).valor = tabuleiro[i+1][j];
 		return true;
 	} else if (tabuleiro[i + 1][j] == '0') {
-		x.linha = i;
-		x.coluna = j;
-		x.valor = '0';
+		(*x).linha = i + 1;
+		(*x).coluna = j;
+		(*x).valor = '0';
 	}
 
 	return false;
@@ -177,20 +165,68 @@ void casasAdjacentes(char tabuleiro[][COLUNA], int livre1[], int livre2[],
 	 */
 	
 	/*LIVRE1*/
-	ladoDireito(tabuleiro, i1, j1, adjacentes[0]);
-	ladoEsquerdo(tabuleiro, i1, j1, adjacentes[1]);
-	ladoAcima(tabuleiro, i1, j1, adjacentes[2]);
-	ladoAbaixo(tabuleiro, i1, j1, adjacentes[3]);
+	ladoDireito(tabuleiro, i1, j1, &adjacentes[0]);
+	ladoEsquerdo(tabuleiro, i1, j1, &adjacentes[1]);
+	ladoAcima(tabuleiro, i1, j1, &adjacentes[2]);
+	ladoAbaixo(tabuleiro, i1, j1, &adjacentes[3]);
 
 	/*LIVRE2*/
-	ladoDireito(tabuleiro, i2, j2, adjacentes[4]);
-	ladoEsquerdo(tabuleiro, i2, j2, adjacentes[5]);
-	ladoAcima(tabuleiro, i2, j2, adjacentes[6]);
-	ladoAbaixo(tabuleiro, i2, j2, adjacentes[7]);
+	ladoDireito(tabuleiro, i2, j2, &adjacentes[4]);
+	ladoEsquerdo(tabuleiro, i2, j2, &adjacentes[5]);
+	ladoAcima(tabuleiro, i2, j2, &adjacentes[6]);
+	ladoAbaixo(tabuleiro, i2, j2, &adjacentes[7]);
 
 	
 	
 
+
+}
+
+void moverPeca(char tabuleiro[][COLUNA], int livre1[], int livre2[],
+					 struct casa_ao_lado adjacentes[], int sizeAdjacente)
+{
+	printf("entrou moverPeca\n");
+	int i1 = livre1[0];
+	int j1 = livre1[1];
+	
+	int i2 = livre2[0];
+	int j2 = livre2[1];
+	
+	int noD = 0;
+	
+	int ni;
+	int nj;
+
+	for (int i = 0; i<sizeAdjacente; i++) {
+		if (i<4) {
+			ni = i1;
+			nj = j1;
+		} else {
+			ni = i2;
+			nj = j2;
+		}
+		if (adjacentes[i].valor == 'I') {
+			printf("entrou moverPeca\n");
+			tabuleiro[ni][nj] = 'I';
+			tabuleiro[adjacentes[i].linha][adjacentes[i].coluna] = '0';
+			/*cria novo nó*/
+		} else if (adjacentes[i].valor == 'D' && !noD) {
+			//tenho que resgatar adjacentes[i].linha e adjacentes[i].coluna
+			//e testar se a mesma posicao no outro 0 tb é D, se for,
+			//gero nó
+			//se ja tiver criado um D, nao preciso criar o nó p D do outro livre
+			noD = 1;
+		}
+	}
+
+	//if (adjacentes[1].valor == 'I') {
+		//printf("entrou moverPeca\n");
+		//tabuleiro[i1][j1] = 'I';
+		//tabuleiro[adjacentes[1].linha][adjacentes[1].coluna] = '0';
+		///*cria novo nó*/
+	//}
+	
+	imprimeTabuleiro(tabuleiro);
 
 }
 
