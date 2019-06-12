@@ -88,6 +88,7 @@ bool ladoEsquerdo(char tabuleiro[LINHA][COLUNA], int i, int j, struct casa_ao_la
 
 bool ladoDireito(char tabuleiro[LINHA][COLUNA], int i, int j, struct casa_ao_lado x)
 {
+	printf("entrou ladoDir\n");
 	if ((0 <= j + 1) && (j + 1 < COLUNA) && (tabuleiro[i][j + 1] != '0'))
 	{
 		x.linha = i;
@@ -108,6 +109,7 @@ bool ladoDireito(char tabuleiro[LINHA][COLUNA], int i, int j, struct casa_ao_lad
 
 bool ladoAcima(char tabuleiro[LINHA][COLUNA], int i, int j, struct casa_ao_lado x)
 {
+	printf("entrou ladoAcima\n");
 	if ((0 <= i - 1) && (i - 1 < LINHA) && (tabuleiro[i - 1][j] != '0'))
 	{
 		x.linha = i;
@@ -128,6 +130,7 @@ bool ladoAcima(char tabuleiro[LINHA][COLUNA], int i, int j, struct casa_ao_lado 
 
 bool ladoAbaixo(char tabuleiro[LINHA][COLUNA], int i, int j, struct casa_ao_lado x)
 {
+	printf("entrou ladoAbaixo\n");
 	if ((0 <= i + 1) && (i + 1 < LINHA) && (tabuleiro[i + 1][j] != '0'))
 	{
 		x.linha = i;
@@ -146,11 +149,14 @@ bool ladoAbaixo(char tabuleiro[LINHA][COLUNA], int i, int j, struct casa_ao_lado
 	return false;
 }
 
-void casasAdjacentes(char tabuleiro[][COLUNA], int casas_livres[],
+void casasAdjacentes(char tabuleiro[][COLUNA], int livre1[], int livre2[],
 					 struct casa_ao_lado adjacentes[], int sizeAdjacente)
 {
-	int i = casas_livres[0];
-	int j = casas_livres[1];
+	int i1 = livre1[0];
+	int j1 = livre1[1];
+	
+	int i2 = livre2[0];
+	int j2 = livre2[1];
 
 	printf("sizeAdjacente: %d\n", sizeAdjacente);
 
@@ -164,8 +170,6 @@ void casasAdjacentes(char tabuleiro[][COLUNA], int casas_livres[],
 	5 - esq livre2
 	6 - cima livre2
 	7 - baixo livre2
-	uma casa do livre1 vai apontar p posicao do livre2
-	e uma casa do livre2 vai apontar a posicao do livre1
 	se achar um 'D' tem que ver se a outra livre achou
 	um 'D' na mesma posicao
 	Ex. se adjacentes[0] for 'D', p jogada ser válida,
@@ -173,16 +177,16 @@ void casasAdjacentes(char tabuleiro[][COLUNA], int casas_livres[],
 	 */
 	
 	/*LIVRE1*/
-	ladoDireito(tabuleiro, i, j, adjacentes[0]);
-	ladoEsquerdo(tabuleiro, i, j, adjacentes[1]);
-	ladoAcima(tabuleiro, i, j, adjacentes[2]);
-	ladoAbaixo(tabuleiro, i, j, adjacentes[3]);
+	ladoDireito(tabuleiro, i1, j1, adjacentes[0]);
+	ladoEsquerdo(tabuleiro, i1, j1, adjacentes[1]);
+	ladoAcima(tabuleiro, i1, j1, adjacentes[2]);
+	ladoAbaixo(tabuleiro, i1, j1, adjacentes[3]);
 
 	/*LIVRE2*/
-	ladoDireito(tabuleiro, i, j, adjacentes[4]);
-	ladoEsquerdo(tabuleiro, i, j, adjacentes[5]);
-	ladoAcima(tabuleiro, i, j, adjacentes[6]);
-	ladoAbaixo(tabuleiro, i, j, adjacentes[7]);
+	ladoDireito(tabuleiro, i2, j2, adjacentes[4]);
+	ladoEsquerdo(tabuleiro, i2, j2, adjacentes[5]);
+	ladoAcima(tabuleiro, i2, j2, adjacentes[6]);
+	ladoAbaixo(tabuleiro, i2, j2, adjacentes[7]);
 
 	
 	
