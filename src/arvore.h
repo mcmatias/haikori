@@ -28,7 +28,7 @@ void inserirarvore(Arvore** raiz, Arvore** novo) // Função que insere dados na
   } 
   else
   {
-	if((*novo)->hash < (*raiz)->hash) 
+	if((*novo) < (*raiz)->novo) 
 		inserirarvore(&(*raiz)->subesqueda, novo);
 	else  
 		inserirarvore(&(*raiz)->subdireita, novo);
