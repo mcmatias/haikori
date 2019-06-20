@@ -1,5 +1,6 @@
 #include "tabuleiro.h"
-
+#include "arvore.h"
+ 
 /*
     Função que executa o jogo Hairoki.
  */

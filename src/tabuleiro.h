@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include "arvore.h"
 
 #define LINHA 5
 #define COLUNA 4
@@ -164,4 +165,5 @@ void casasAdjacentes(char tabuleiro[LINHA][COLUNA], int casas_livres[CASA_LIVRE]
 void possiveisMovimentos(char tabuleiro[LINHA][COLUNA],
 						 char possiveisMovimentos[LINHA][COLUNA][CONFIGURACOES], int *contador_jogadas)
 {
+
 }
