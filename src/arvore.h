@@ -10,10 +10,10 @@ struct Arvore
 	struct Arvore* novo;
 } 
 
-void inserirarvore(Arvore** raiz, Arvore** novo) // Função que insere dados na árvore recursivamente
+// Função que insere dados na árvore recursivamente
+void inserirarvore(Arvore** raiz, Arvore** novo) 
 {
 
-  
 	if(*raiz == NULL)
 	{
 		*raiz = (struct Arvore*)malloc(sizeof(Arvore)); 
@@ -39,6 +39,9 @@ void inserirarvore(Arvore** raiz, Arvore** novo) // Função que insere dados na
 		}
 	}
 }
+
+// Função de busca na arvore
+
 struct arvore* buscararvore(struct arvore **raiz, int hash)
 {
 	if (*raiz == NULL)
@@ -59,6 +62,60 @@ struct arvore* buscararvore(struct arvore **raiz, int hash)
 	}
 }
 
+int criarnovapossibilidade (char tabuleiro[LINHA][COLUNA], Arvore **novono)
+{
+	int i;
+	int j = 0;
+	int k = 0;
+	int existente = 0;
+	int colisao = 0;
+	struct Arvore* existe; 
+
+	int hs = hash(tabuleiro);
+	existe = buscararvore(&raiz, hs);
+	
+	// Função que verifica colisões
+	
+	if (existe != NULL)
+	{
+		for (j=0; j<LINHA; j++)
+		{
+			for (k=0; j<COLUNA; k++)
+			{
+				if (tabuleiro[j][k] != existe->tabuleiro[j][k])
+				{
+					colisao = 1;
+					break
+				}
+			}
+		}
+		existente = colisao? 0 : 1;
+	}
+	
+	// Função que adiciona novo possivel no
+	
+	if(!existente)
+	{
+		for i=0; i<8; i++)
+		{
+			if((*novono)->possibilidades[i] == NULL)
+			{
+				(*novono)->possibilidades[i] = (struct Arvore*)malloc(sizeof(Arvore));
+				for (j=0; j<LINHA; j++)
+				{
+					for (k=0; j<COLUNA; k++)
+					{
+						(*novono)->possibilidades[i]->tabuleiro[j][k] = tabuleiro[j][k];
+					}
+				}
+			(*novono)->possibilidades[i]->hash = hs;
+			inserirarvore(*raiz, &((*novono)->possibilidades[i]));
+			break;
+			}
+		}
+	}
+	return 1;
+}
 
 int hash(char tabuleiro[LINHA][COLUNA])
 {
