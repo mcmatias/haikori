@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include "arvore.h"
 
 #define LINHA 5
 #define COLUNA 4
@@ -229,7 +230,7 @@ void moverPeca(char tabuleiro[][COLUNA], int livre1[], int livre2[],
 				noD = 1;
 				//criar novo no
 				//como estou movendo pecas D, vou testar se cheguei na posicao vencedora
-				if (ni == 4 && nj == 1 && i2 = 4 && j2 == 2) {
+				if (ni == 4 && nj == 1 && i2 == 4 && j2 == 2) {
 						ganhou = 1;
 				}
 			}
@@ -254,4 +255,5 @@ void moverPeca(char tabuleiro[][COLUNA], int livre1[], int livre2[],
 void possiveisMovimentos(char tabuleiro[LINHA][COLUNA],
 						 char possiveisMovimentos[LINHA][COLUNA][CONFIGURACOES], int *contador_jogadas)
 {
+
 }
