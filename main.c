@@ -31,9 +31,13 @@ int main(int argc, char *argv[])
 	int sizeAdjacente = sizeof(adjacentes) / sizeof(adjacentes[0]);
 
 	imprimeTabuleiro(tabuleiro_inicial);
-	retornaCasaVazia(tabuleiro_inicial, livre1, livre2);
-	casasAdjacentes(tabuleiro_inicial, livre1, livre2, adjacentes, sizeAdjacente);
-	moverPeca(tabuleiro_inicial, livre1, livre2, adjacentes, sizeAdjacente);
+	int ganhou = 0;
+	while(!ganhou) {
+		retornaCasaVazia(tabuleiro_inicial, livre1, livre2);
+		casasAdjacentes(tabuleiro_inicial, livre1, livre2, adjacentes, sizeAdjacente);
+		moverPeca(tabuleiro_inicial, livre1, livre2, adjacentes, sizeAdjacente);
+	}
+	printf('Ganhou!')
 
 	for (i = 0; i < tamanho_casas_adjancentes; i++)
 	{

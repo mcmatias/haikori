@@ -215,18 +215,29 @@ void moverPeca(char tabuleiro[][COLUNA], int livre1[], int livre2[],
 			//e testar se a mesma posicao no outro 0 tb é D, se for,
 			//gero nó
 			//se ja tiver criado um D, nao preciso criar o nó p D do outro livre
-			noD = 1;
+			
+			int x  = 0;
+			indiceGeral = i+4;
+			x = (indiceGeral % 8);
+			if(adjacentes[x].valor == 'D') {
+				//movendo primeiro D
+				tabuleiro[ni][nj] = 'D';
+				tabuleiro[adjacentes[i].linha][adjacentes[i].coluna] = '0';
+				//movendo segundo D
+				tabuleiro[i2][j2] = 'D';
+				tabuleiro[adjacentes[x].linha][adjacentes[x].coluna] = '0';
+				noD = 1;
+				//criar novo no
+				//como estou movendo pecas D, vou testar se cheguei na posicao vencedora
+				if (ni == 4 && nj == 1 && i2 = 4 && j2 == 2) {
+						ganhou = 1;
+				}
+			}
+			
 		}
 	}
 
-	//if (adjacentes[1].valor == 'I') {
-		//printf("entrou moverPeca\n");
-		//tabuleiro[i1][j1] = 'I';
-		//tabuleiro[adjacentes[1].linha][adjacentes[1].coluna] = '0';
-		///*cria novo nó*/
-	//}
-	
-	imprimeTabuleiro(tabuleiro);
+	//imprimeTabuleiro(tabuleiro);
 
 }
 
