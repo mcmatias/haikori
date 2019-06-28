@@ -16,18 +16,29 @@ int main(int argc, char *argv[])
 	/*
 		Matrix que guarda os possíveis movimentos a cada jogada. 
 	*/
-	char possiveis_movimentos[LINHA][COLUNA][CONFIGURACOES] = {0};
-	int contador_jogadas = 0;
+
 	int livre1[2] = {CORINGA, CORINGA};
 	int livre2[2] = {CORINGA, CORINGA};
 	int casas_adjacentes[CASA_ADJACENTE_LINHA][CASA_ADJACENTE_COLUNA];
+	
+
 	int i;
 	int j;
 	int tamanho_casas_adjancentes = 0;
 
+	
+	struct casa_ao_lado adjacentes[7];
+	
+	int sizeAdjacente = sizeof(adjacentes) / sizeof(adjacentes[0]);
+
 	imprimeTabuleiro(tabuleiro_inicial);
-	retornaCasaVazia(tabuleiro_inicial, livre1, livre2);
-	casasAdjacentes(tabuleiro_inicial, livre2, casas_adjacentes, &tamanho_casas_adjancentes);
+	int ganhou = 0;
+	while(!ganhou) {
+		retornaCasaVazia(tabuleiro_inicial, livre1, livre2);
+		casasAdjacentes(tabuleiro_inicial, livre1, livre2, adjacentes, sizeAdjacente);
+		moverPeca(tabuleiro_inicial, livre1, livre2, adjacentes, sizeAdjacente);
+	}
+	printf('Ganhou!')
 
 	for (i = 0; i < tamanho_casas_adjancentes; i++)
 	{
