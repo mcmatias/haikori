@@ -1,37 +1,34 @@
 /*
-   Arquivo que fornece a estrutura de dados base para o tratamento do problema.
-   Aqui é implementada um árvore que pode apresentar até no máximo 6 filhos.
-   Funções públicas que foram desenvolidas para interagir com a interface da estrutura de dados:
-	  1> search_item(item)
-          2> insert_item(item)
+   Implementing a Data Abstract Structure: A SixTree.
+   Public methods:
+	-> insert_item(Node* root, casa_ao_lado* configuracoes_possiveis)
+	-> search_item(Node* root, casa_ao_lado* configuracoes_possiveis)
 */
-#include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
-#include "tabuleiro.h"
-
-
-/* Definição dos protótipos das funções presentes neste arquivo */
-Node *choose_node(Node *node);
-bool insert_node(Node *root, Node *node_new);
-Node *search_node(Node *root, char tabuleiro_configuracao[]);
-Node *create_node(void);
 
 
 /*
-   Construção do tipo Abstrato de dados: um nó que pode ter até 6 nós filhos.
- */
+   SixTree baseline structure.
+   By default all data pointers members'll be initialized with NULL.   
+*/
 typedef struct Node {
-	struct Node *child_1 = NULL;
-	struct Node *child_2 = NULL;
-	struct Node *child_3 = NULL;
-	struct Node *child_4 = NULL;
-	struct Node *child_5 = NULL;
-	struct Node *child_6 = NULL;
-	char configuracao_tabuleiro[LINHA][COLUNA]	
+	struct Node* child_1;
+	struct Node* child_2;
+	struct Node* child_3;
+	struct Node* child_4;
+	struct Node* child_5;
+	struct Node* child_6;
+	casa_ao_lado* configuracoes_possiveis;
 } Node;
 
 
-Node *root;
+/* function's prototypes */
+static Node *choose_node(Node *node);
+static Node* search_node(Node* node, casa_ao_lado* configuracoes_possiveis);
+bool search_item(Node* root, casa_ao_lado* configuracoes_possiveis);
+bool insert_item(Node* root, casa_ao_lado* configuracoes_possiveis);
+static Node* create_node(Node* node, casa_ao_lado* configuracoes_possiveis);
 
 
 /*
@@ -44,22 +41,22 @@ Node *choose_node(Node *node)
 {
 	Node *result = NULL;
 
-	if((result = node.child_1) == NULL)
+	if((result = node->child_1) == NULL)
 	{
 		;
-	} else if((result = node.child_2) == NULL)
+	} else if((result = node->child_2) == NULL)
 	{
 		;
-	} else if((result = node.child_3) == NULL)
+	} else if((result = node->child_3) == NULL)
 	{
 		;
-	} else if((result = node.child_4) == NULL)
+	} else if((result = node->child_4) == NULL)
 	{
 		;
-	} else if((result = node.child_5) == NULL)
+	} else if((result = node->child_5) == NULL)
 	{
 		;
-	} else if((result = node.child_6) == NULL)
+	} else if((result = node->child_6) == NULL)
 	{
 		;
 	}
@@ -69,90 +66,85 @@ Node *choose_node(Node *node)
 
 
 /*
-    Função que cria um novo nó.
+   A function that helps to find items on the tree.
+   This is not a public function, then is not callable outside this file's scope.
 */
-Node *create_node(void)
+static Node* search_node(Node* node, casa_ao_lado* configuracoes_possiveis)
 {
-	Node *node_new = (Node*) malloc(sizeof(Node));
-	return node_new
-}
-
-
-/*
-   Função que insere novos nós numa árvore de nós, de forma recursiva.   
-*/
-bool insert_node(char configuracao_tabuleiro[][]) 
-{
-
-	if(root->configuracao_tabuleiro == NULL)
+	if(node->configuracoes_possiveis == configuracoes_possiveis)
 	{
-		root->configuracao_tabuleiro = configuracao_tabuleiro;
-	} else 
+		;
+	} else if(node->child_1 != NULL)
 	{
-		Node *node_new = create_node;
-		node_new = insert_node(choose_node(parent), node_new);
-		return true;		
-	}			
-}
-
-
-/*
-   Função que realiza busca de nós numa árvore.
-   Encontrado o nó em questão, a função retorna o seu endereço.
-   A busca é realizada sempre dós nós filhos mais a esquerda para a direita.   
-*/
-Node *search_node(Node *node, char tabuleiro_configuracao[][])
-{
-	if (node == NULL)
+		return search_node(node->child_1, configuracoes_possiveis);
+	} else if(node->child_2 != NULL)
 	{
-		return NULL;
-	} else if(node->configuracao_tabuleiro == configuracao_tabuleiro)
+		return search_node(node->child_2, configuracoes_possiveis);
+	} else if(node->child_3 != NULL)
 	{
-		return node;
-	} else 
+		return search_node(node->child_3, configuracoes_possiveis);
+	} else if(node->child_4 != NULL)
 	{
-		if(node->child_1 != NULL && node->child_1->configuracao_tabuleiro != configuracao_tabuleiro)
-		{
-			return search_node(node->child_1, tabuleiro_configuracao);
-		}
+		return search_node(node->child_4, configuracoes_possiveis);
+	} else if(node->child_5 != NULL)
+	{
+		return search_node(node->child_5, configuracoes_possiveis);
+	} else if(node->child_6 != NULL)
+	{
+		return search_node(node->child_6, configuracoes_possiveis);
+	}
 		
-		if(node->child_2 != NULL node->child_2->configuracao_tabuleiro != configuracao_tabuleiro)
-		{
-			return search_node(node->child_2, tabuleiro_configuracao);
-		} 
-		
-		if(node->child_3 != NULL node->child_3->configuracao_tabuleiro != configuracao_tabuleiro)
-		{
-			return search_node(node->child_3, tabuleiro_configuracao);
-		}
- 
-		if(node->child_4 != NULL node->child_4->configuracao_tabuleiro != configuracao_tabuleiro)
-		{
-			return search_node(node->child_4, tabuleiro_configuracao);
-		}
-
-		if(node->child_5 != NULL node->child_5->configuracao_tabuleiro != configuracao_tabuleiro)
-		{
-			return search_node(node->child_5, tabuleiro_configuracao);
-		}
-
-		if(node->child_6 != NULL node->child_6->configuracao_tabuleiro != configuracao_tabuleiro)
-		{
-			return search_node(node->child_6, tabuleiro_configuracao);
-		}
-	}		
+	return node;	
 }
 
 
 /*
- */
-bool  search_item(char configuracao_tabuleiro[][])
+   A function that finds elements on the tree.
+*/
+bool search_item(Node* node, casa_ao_lado* configuracoes_possiveis)
 {
-	if((Node *node = search_node(root)) != NULL)
+	if(search_node(node, configuracoes_possiveis)->configuracoes_possiveis == configuracoes_possiveis)
 	{
 		return true;
 	} else
 	{
 		return false;
-	}	
+	}
+}
+
+
+/*
+    A function that inserts elements on the tree.
+*/
+bool insert_item(Node* node, casa_ao_lado* configuracoes_possiveis)
+{
+	if(!(node->configuracoes_possiveis))
+	{
+		node->configuracoes_possiveis = configuracoes_possiveis;
+		return true;		
+	} else if(!search_item(node, configuracoes_possiveis))
+	{
+		Node* new_node = create_node(node, configuracoes_possiveis);
+		new_node->configuracoes_possiveis = configuracoes_possiveis;
+		return true;		
+	}
+	
+	return false;	
+}
+
+
+/*
+   A function that helps to insert items on the tree.
+   This is not a public function, then is not callable outside this file's scope.
+*/
+static Node* create_node(Node* node, casa_ao_lado* configuracoes_possiveis)
+{	
+	/* first we have to allocate a new block of memory to the new node */
+	Node* new_node = (Node*) malloc(sizeof(Node));
+	Node* parent = search_node(node, configuracoes_possiveis);
+	
+	/* then we have to decide which side the node'll be inserted */
+	parent->choose_node(node) = new_node;	
+	
+	return new_node;	
 }
