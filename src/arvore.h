@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#include "tabuleiro.h"
+
 
 /*
    SixTree baseline structure.
